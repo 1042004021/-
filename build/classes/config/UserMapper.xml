@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 该文件编写mybatis中的mapper接口里面的方法提供对应的sql语句 -->
+<mapper namespace="xyz.xqsr.dao.UserDao">
+	<!-- 查询所有用户 -->
+	<select id="select" resultType="xyz.xqsr.model.User">
+		select * from user
+	</select>
+	<!-- 用户登录验证 -->
+	<select id="selectUser" resultType="xyz.xqsr.model.User">
+		select * from user where username = #{username} and password = #{password}
+	</select>
+	<!-- 管理登录验证 -->
+	<select id="selectAdmin" resultType="xyz.xqsr.model.Admin">
+		select * from admin where aname = #{username} and apassword = #{password}
+	</select>
+	<!-- 用户注册 -->
+	<insert id="addUser" parameterType="xyz.xqsr.model.User">
+ 		INSERT INTO `user`(`username`, `password`) VALUES(#{username}, #{password})
+	</insert>
+	<!-- 用户修改密码 -->
+	<update id="alertPass" parameterType="xyz.xqsr.model.User">
+		UPDATE `user` SET `password` = #{password} WHERE username = #{username}
+	</update>
+	<!-- 管理员修改密码 -->
+	<update id="alertAdminPass" parameterType="xyz.xqsr.model.User">
+		UPDATE `admin` SET `apassword` = #{password} WHERE aname = #{username}
+	</update>
+</mapper>

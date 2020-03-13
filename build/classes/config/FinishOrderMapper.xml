@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 该文件编写mybatis中的mapper接口里面的方法提供对应的sql语句 -->
+<mapper namespace="xyz.xqsr.dao.FinishOrderDao">
+	<!-- 添加已完成订单 -->
+	<insert id="addFinishOrder" parameterType="xyz.xqsr.model.FinishOrder">
+		INSERT INTO finishorder (uid,`start`,`end`,`status`,time)
+		VALUES (#{uid},#{start},#{end},#{status},#{time})
+	</insert>
+	<!-- 查询所有已完成订单 -->
+	<select id="allFinishOrder" resultType="xyz.xqsr.model.FinishOrder">
+		select * from finishorder where uid = #{uid}
+	</select>
+</mapper>

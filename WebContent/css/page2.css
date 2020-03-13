@@ -1,0 +1,28 @@
+@charset "UTF-8";
+.p1{
+	font-size: 30px;
+	position: absolute;
+	top:7px;
+	left:100px;
+}
+.nav1{
+	right:0;
+	position: absolute;
+}
+.form1{
+	top:10px;
+	position: absolute;
+	right: 480px;
+	width:300px;
+}
+.form2{
+	top:10px;
+	position: absolute;
+	right:220px;
+	width:300px;
+}
+.search{
+	top:10px;
+	position: absolute;
+	right:120px;
+}

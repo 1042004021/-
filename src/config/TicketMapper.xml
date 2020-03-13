@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 该文件编写mybatis中的mapper接口里面的方法提供对应的sql语句 -->
+<mapper namespace="xyz.xqsr.dao.TicketDao">
+	<!-- 查询所有票-->
+	<select id="allTicket" resultType="xyz.xqsr.model.Ticket">
+		select * from carticket
+	</select>
+	<!-- 查询指定地点的票 -->
+	<select id="searchTicket" resultType="xyz.xqsr.model.Ticket">
+		select * from carticket where start = #{start} and end = #{end}
+	</select>
+	<!-- 查询回显的票 -->
+	<select id="selectTicket" resultType="xyz.xqsr.model.Ticket">
+		select * from carticket where cid=#{cid}
+	</select>
+	<!-- 票数减一 -->
+	<update id="buyTicket" parameterType="xyz.xqsr.model.Order">
+		update carticket set quantity = quantity-1 where cid = #{cid}
+	</update>
+	<!-- 票数加一 -->
+	<update id="backTicket" parameterType="int">
+		update carticket set quantity = quantity+1 where cid = #{cid}
+	</update>
+	<!-- 修改票数 -->
+	<update id="updateTicket" parameterType="int">
+		update carticket set quantity = ${quantity} where cid = #{cid}
+	</update>
+	<!-- 添加车票 -->
+	<insert id="addTicket" parameterType="xyz.xqsr.model.Ticket">
+		insert into carticket (`start`,`end`,quantity,time) value ('${start}','${end}',${quantity},'${time}')
+	</insert>
+	<!-- 下架车票 -->
+	<delete id="deleteTicket" parameterType="int">
+		DELETE FROM carticket WHERE cid = #{cid}
+	</delete>
+</mapper>

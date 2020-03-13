@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 该文件编写mybatis中的mapper接口里面的方法提供对应的sql语句 -->
+<mapper namespace="xyz.xqsr.dao.OrderDao">
+	<!-- 将用户与订单绑定 -->
+	<insert id="bind" parameterType="xyz.xqsr.model.Order">
+		INSERT INTO `ticket`.`order`(`uid`, `cid`, `status`) VALUES (#{uid}, #{cid}, #{status});
+	</insert>
+	<!-- 退单 -->
+	<update id="backOrder" parameterType="xyz.xqsr.model.Order">
+		UPDATE `order` SET STATUS=-1 where uid=#{uid} and cid=#{cid}
+	</update>
+	<!-- 查看当前用户的订单 -->
+	<select id="allOrder" resultType="xyz.xqsr.model.Ticket">
+		SELECT `order`.cid,carticket.`start`,carticket.`end`,carticket.time from `order`,carticket where `order`.cid = carticket.cid and `order`.uid=#{uid} and status = 1
+	</select>
+	<!-- 查看当前用户的退单 -->
+	<select id="showBackOrder" resultType="xyz.xqsr.model.Ticket">
+		SELECT `order`.cid,carticket.`start`,carticket.`end`,carticket.time from `order`,carticket where `order`.cid = carticket.cid and `order`.uid=#{uid} and status = -1
+	</select>
+	<!-- 查看所用用户的退单 -->
+	<select id="allBackOrder" resultType="xyz.xqsr.model.Ticket">
+		SELECT `order`.uid,`order`.cid,carticket.`start`,carticket.`end`,carticket.time from `order`,carticket where `order`.cid = carticket.cid and status = -1
+	</select>
+	<!-- 移除订单 -->
+	<delete id="removeOrder" parameterType="int">
+		DELETE from `order` where uid = #{uid} and cid = #{cid}
+	</delete>
+	<!-- 拒绝退单 -->
+	<update id="disBackOrder" parameterType="int">
+		UPDATE `order` SET STATUS=1 where uid = #{uid} and cid = #{cid}
+	</update>
+	<!-- 查看当前用户的订单 -->
+	<select id="allFinishOrder" resultType="xyz.xqsr.model.Ticket">
+		SELECT `order`.cid,carticket.`start`,carticket.`end`,carticket.time from `order`,carticket where `order`.cid = carticket.cid and `order`.uid=#{uid} and status = 1
+	</select>
+</mapper>
